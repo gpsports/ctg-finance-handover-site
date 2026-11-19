@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Sign-in code</title>
+<style>
+:root{color-scheme:light dark}
+body{margin:0;min-height:100vh;display:grid;place-items:center;font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:Canvas;color:CanvasText;padding:16px}
+main{max-width:560px;display:grid;gap:14px}
+code{display:block;word-break:break-all;padding:14px;border:1px solid GrayText;border-radius:8px;font-size:15px;user-select:all}
+button{font:inherit;padding:10px 14px;border-radius:8px;border:1px solid GrayText;cursor:pointer;justify-self:start}
+p{margin:0;line-height:1.5}.muted{color:GrayText;font-size:14px}
+</style></head><body><main>
+<h1 style="margin:0;font-size:22px">Your sign-in code</h1>
+<p id="msg">Copy this code and paste it as a comment on the connect job, like <b>/code&nbsp;abc123…</b>, within 5 minutes.</p>
+<code id="c">-</code>
+<button id="b" type="button">Copy</button>
+<p class="muted">This page only shows the code from the address bar. Nothing is stored or sent anywhere.</p>
+</main>
+<script>
+const q=new URLSearchParams(location.search), code=q.get('code'), err=q.get('error');
+const c=document.getElementById('c');
+if(code){c.textContent=code}else{c.textContent=err?('Error: '+err):'No code in the address.';document.getElementById('msg').textContent='Start again from the connect job.'}
+document.getElementById('b').onclick=()=>{navigator.clipboard.writeText(c.textContent).then(()=>{document.getElementById('b').textContent='Copied'})};
+history.replaceState(null,'',location.pathname);
+</script></body></html>
